@@ -1,5 +1,6 @@
 package com.example.caiyunweather.ui.place
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,7 @@ class PlaceFragment : Fragment() {
         bgImageView = view.findViewById(R.id.bgImageView)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val layoutManager = LinearLayoutManager(activity)
@@ -54,7 +56,7 @@ class PlaceFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-        viewModel.placeLiveData.observe(this ,Observer{result ->
+        viewModel.placeLiveData.observe(viewLifecycleOwner ,Observer{result ->
             val places =result.getOrNull()
             if (places!=null){
                 recyclerView.visibility=View.VISIBLE
